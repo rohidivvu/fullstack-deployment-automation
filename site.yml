@@ -1,0 +1,52 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Update and install necessary packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - nginx
+        - git
+        - nodejs
+        - npm
+
+    - name: Start and enable Nginx service
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Clone Node.js application from repository
+      git:
+        repo: 'https://github.com/your-repo/node-app.git'  # Change this to your actual repo
+        dest: /var/www/nodeapp
+
+    - name: Install Node.js dependencies
+      command: npm install
+      args:
+        chdir: /var/www/nodeapp
+
+    - name: Configure Nginx to serve Node.js app
+      copy:
+        dest: /etc/nginx/conf.d/nodeapp.conf
+        content: |
+          server {
+              listen 80;
+              server_name localhost;
+
+              location / {
+                  proxy_pass http://localhost:3000;
+                  proxy_http_version 1.1;
+                  proxy_set_header Upgrade $http_upgrade;
+                  proxy_set_header Connection 'upgrade';
+                  proxy_set_header Host $host;
+                  proxy_cache_bypass $http_upgrade;
+              }
+          }
+    
+    - name: Restart Nginx
+      systemd:
+        name: nginx
+        state: restarted

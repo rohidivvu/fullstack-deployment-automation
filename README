@@ -1,0 +1,20 @@
+Fullstack Application and Infrastructure Deployment
+This repository contains the code and configuration for deploying a simple Node.js application and setting up the required infrastructure. The project utilizes Docker, Kubernetes, Terraform, and Ansible for seamless application and infrastructure management.
+
+Table of Contents
+Overview
+Task 1: Node.js Application with Docker
+Task 2: Kubernetes Deployment
+Task 3: Infrastructure Provisioning with Terraform and Ansible
+Prerequisites
+Usage
+Contributing
+Overview
+This repository is designed to showcase the deployment of a Node.js web application on a Docker container, manage its deployment using Kubernetes, and provision infrastructure using Terraform and Ansible.
+
+Key Components:
+Node.js Application: A simple web application that listens on port 3000.
+Docker: Containerizes the application.
+Kubernetes: Manages application deployment with Nginx as the web server.
+Terraform: Provisions AWS EC2 instances, VPC, and security configurations.
+Ansible: Configures the EC2 instance and deploys the Node.js application with Nginx.
