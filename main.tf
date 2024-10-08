@@ -1,6 +1,6 @@
 # Provider Configuration
 provider "aws" {
-  region = "us-east-1"  # Change this based on your region
+  region = "us-east-1"  
 }
 
 # VPC
@@ -69,13 +69,13 @@ resource "aws_security_group" "allow_web" {
 }
 
 resource "aws_instance" "web_server" {
-  ami                         = "ami-0c55b159cbfafe1f0"  # Amazon Linux 2 AMI
+  ami                         = "ami-0c55b159cbfafe1f0"  
   instance_type               = "t2.micro"
   subnet_id                   = aws_subnet.main_subnet.id
   security_groups             = [aws_security_group.allow_web.name]
   associate_public_ip_address = true
 
-  key_name = "your-key-name"  # Replace with your key pair name
+  key_name = "oct-pair"  
 
   tags = {
     Name = "NodeAppServer"
